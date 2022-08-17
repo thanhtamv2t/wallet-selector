@@ -2,7 +2,9 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { map, distinctUntilChanged } from "rxjs";
 import { setupWalletSelector } from "@near-wallet-selector/core";
 import type { WalletSelector, AccountState } from "@near-wallet-selector/core";
+//@ts-ignore
 import { setupModal } from "@near-wallet-selector/modal-ui";
+//@ts-ignore
 import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
 import { setupMyNearWallet } from "@near-wallet-selector/my-near-wallet";
@@ -12,6 +14,8 @@ import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupLedger } from "@near-wallet-selector/ledger";
 import { setupWalletConnect } from "@near-wallet-selector/wallet-connect";
 import { setupNightlyConnect } from "@near-wallet-selector/nightly-connect";
+import { setupCoin98Wallet } from '@near-wallet-selector/coin98-wallet'
+
 import { CONTRACT_ID } from "../constants";
 
 declare global {
@@ -43,10 +47,12 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
       modules: [
         setupNearWallet(),
         setupMyNearWallet(),
+        setupCoin98Wallet(),
         setupSender(),
         setupMathWallet(),
         setupNightly(),
         setupLedger(),
+
         setupWalletConnect({
           projectId: "c4f79cc...",
           metadata: {

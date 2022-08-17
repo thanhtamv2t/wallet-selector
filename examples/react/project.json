@@ -11,7 +11,7 @@
         "compiler": "babel",
         "outputPath": "dist/examples/react",
         "index": "examples/react/src/index.html",
-        "baseHref": "/wallet-selector/",
+        "baseHref": "/",
         "main": "examples/react/src/main.tsx",
         "polyfills": "examples/react/src/polyfills.ts",
         "tsConfig": "examples/react/tsconfig.app.json",

@@ -35,9 +35,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "packages/modal-ui/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["packages/modal-ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
