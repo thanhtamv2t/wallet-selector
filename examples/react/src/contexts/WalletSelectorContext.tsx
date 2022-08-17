@@ -14,7 +14,7 @@ import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupLedger } from "@near-wallet-selector/ledger";
 import { setupWalletConnect } from "@near-wallet-selector/wallet-connect";
 import { setupNightlyConnect } from "@near-wallet-selector/nightly-connect";
-import { setupCoin98Wallet } from '@near-wallet-selector/coin98-wallet'
+import { setupCoin98Wallet } from "@near-wallet-selector/coin98-wallet";
 
 import { CONTRACT_ID } from "../constants";
 
