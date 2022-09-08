@@ -1,5 +1,4 @@
 import { isMobile } from "is-mobile";
-import { TypedError } from "near-api-js/lib/utils/errors";
 import { signTransactions } from "@near-wallet-selector/wallet-utils";
 import type {
   WalletModuleFactory,
@@ -11,11 +10,12 @@ import type {
   Optional,
 } from "@near-wallet-selector/core";
 import { getActiveAccount } from "@near-wallet-selector/core";
-import type { FinalExecutionOutcome } from "near-api-js/lib/providers";
 
 import { isLedgerSupported, LedgerClient } from "./ledger-client";
 import type { Subscription } from "./ledger-client";
 import { Signer, utils } from "near-api-js";
+import type { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import icon from "./icon";
 
 interface LedgerAccount extends Account {
   derivationPath: string;
@@ -35,6 +35,7 @@ interface LedgerState {
 
 export interface LedgerParams {
   iconUrl?: string;
+  deprecated?: boolean;
 }
 
 export const STORAGE_ACCOUNTS = "accounts";
@@ -59,6 +60,7 @@ const Ledger: WalletBehaviourFactory<HardwareWallet> = async ({
   provider,
   logger,
   storage,
+  metadata,
 }) => {
   const _state = await setupLedgerState(storage);
 
@@ -145,7 +147,7 @@ const Ledger: WalletBehaviourFactory<HardwareWallet> = async ({
         return accessKey;
       },
       (err) => {
-        if (err instanceof TypedError && err.type === "AccessKeyDoesNotExist") {
+        if (err.type === "AccessKeyDoesNotExist") {
           return null;
         }
 
@@ -218,6 +220,12 @@ const Ledger: WalletBehaviourFactory<HardwareWallet> = async ({
       return getAccounts();
     },
 
+    async verifyOwner({ message }) {
+      logger.log("Ledger:verifyOwner", { message });
+
+      throw new Error(`Method not supported by ${metadata.name}`);
+    },
+
     async signAndSendTransaction({ signerId, receiverId, actions }) {
       logger.log("signAndSendTransaction", { signerId, receiverId, actions });
 
@@ -270,13 +278,14 @@ const Ledger: WalletBehaviourFactory<HardwareWallet> = async ({
 };
 
 export function setupLedger({
-  iconUrl = "./assets/ledger-icon.png",
+  iconUrl = icon,
+  deprecated = false,
 }: LedgerParams = {}): WalletModuleFactory<HardwareWallet> {
   return async () => {
     const mobile = isMobile();
     const supported = isLedgerSupported();
 
-    if (mobile || !supported) {
+    if (mobile) {
       return null;
     }
 
@@ -285,9 +294,10 @@ export function setupLedger({
       type: "hardware",
       metadata: {
         name: "Ledger",
-        description: null,
+        description:
+          "Protect crypto assets with the most popular hardware wallet.",
         iconUrl,
-        deprecated: false,
+        deprecated,
         available: supported,
       },
       init: Ledger,
