@@ -32,9 +32,11 @@
         "packages/near-wallet/src/index.ts"
       ],
       "@near-wallet-selector/nightly": ["packages/nightly/src/index.ts"],
+      "@near-wallet-selector/nightly-connect": ["packages/nightly/src/index.ts"],
       "@near-wallet-selector/nightly-connect": [
-        "packages/nightly-connect/src/index.ts"
+        "packages/nightly-connect-connect/src/index.ts"
       ],
+      "@near-wallet-selector/sender": ["packages/sender/src/index.ts"],
       "@near-wallet-selector/sender": ["packages/sender/src/index.ts"],
       "@near-wallet-selector/wallet-connect": [
         "packages/wallet-connect/src/index.ts"

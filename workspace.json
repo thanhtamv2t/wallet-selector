@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
     "angular": "examples/angular",
@@ -12,6 +13,8 @@
     "nightly": "packages/nightly",
     "nightly-connect": "packages/nightly-connect",
     "react": "examples/react",
+    "sender": "packages/sender",
+    "wallet-connect": "packages/wallet-connect",
     "sender": "packages/sender",
     "wallet-connect": "packages/wallet-connect",
     "wallet-utils": "packages/wallet-utils"
